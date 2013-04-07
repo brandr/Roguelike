@@ -1,21 +1,20 @@
 
-public class Monster {
+public class Monster extends Entity{
 
-  public final int MAXINVENTORYSIZE=30;	//maximum inventory size
+	public final int MAXINVENTORYSIZE=30;	//maximum inventory size
 	public final int INVENTORYSLOTS=6;		//number of places to wear equipment
 	
 	public Monster(){
 		name = null;
-		hitPoints[0]=0;
-		hitPoints[1]=0;
-		baseDamage = 0;
 	}
 	
 	public Monster(String name){
 		this.name = name;
-		hitPoints[0]=0;
-		hitPoints[1]=0;
-		baseDamage = 0;
+	}
+	
+	public Monster(String name, char icon){
+		this.name = name;
+		setIcon(icon);
 	}
 
 	//toString methods
@@ -67,7 +66,54 @@ public class Monster {
 	}
 	
 	//movement methods
-	//public void Move(direction)
+	
+	public void move (char direction){
+		move(direction, 1);
+	}
+	
+	public void move(char direction, int magnitude){
+		switch(direction){
+		case('1'):
+			relativeMove(-1*magnitude,magnitude);
+			break;
+		case('2'):
+			relativeMove(0,magnitude);
+			break;
+		case('3'):
+			relativeMove(magnitude,magnitude);
+			break;
+		case('4'):
+			relativeMove(-1*magnitude,0);
+			break;
+		case('5'):
+			//TODO: decide what 5 does (center of numpad)
+			break;
+		case('6'):
+			relativeMove(magnitude,0);
+			break;
+		case('7'):
+			relativeMove(-1*magnitude,-1*magnitude);
+			break;
+		case('8'):
+			relativeMove(0,-1*magnitude);
+			break;
+		case('9'):
+			relativeMove(magnitude,-1*magnitude);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	public void relativeMove(int relativeXPos, int relativeYPos){
+		moveTo(getXPos()+relativeXPos, getYPos()+relativeYPos);
+	}
+	
+	public void moveTo(int xPos, int yPos){
+		//TODO: need error handling to prevent moving onto solid objects, or out of the room.
+		currentTile.setIcon(Level.EMPTYTILEICON);
+		setPosition(xPos, yPos);
+	}
 	
 	
 	//damage-related functions
@@ -219,8 +265,8 @@ public class Monster {
 		}
 
 	protected String name;
-	protected int[] hitPoints=new int[2];	//two-int array, with first as current and second and maximum
-	protected int baseDamage;
+	protected int[] hitPoints={0,0};	//two-int array, with first as current and second and maximum
+	protected int baseDamage=0;
 	
 	protected Inventory inventory = new Inventory();
 	protected Equipment[] equippedItems = new Equipment[INVENTORYSLOTS];
