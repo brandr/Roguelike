@@ -1,7 +1,12 @@
-
 public class FightTester {
   
 	public static void main(String[] args){
+		
+		//Create Dungeon and Print Dungeon
+	  	dungeon d = new dungeon();
+	  	d.setMap();
+	  	d.printMap();
+	  
 		Player player1 = new Player("Link");
 		Monster monster1 = new Monster("Moblin");
 		
