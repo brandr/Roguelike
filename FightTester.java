@@ -1,14 +1,36 @@
+import java.util.Scanner;
+
 public class FightTester {
   
 	public static void main(String[] args){
 		
+		Scanner in = new Scanner(System.in);
+		
 		//Create Dungeon and Print Dungeon
-	  	dungeon d = new dungeon();
+	  	Dungeon d = new Dungeon();
 	  	d.setMap();
-	  	d.printMap();
-	  
+	  	
 		Player player1 = new Player("Link");
-		Monster monster1 = new Monster("Moblin");
+		Monster monster1 = new Monster("Moblin",'M');
+		
+		monster1.setCurrentLevel(d.lvlList[0]);
+		monster1.setPosition(2,2);
+		
+		player1.setCurrentLevel(d.lvlList[0]);
+		player1.setPosition(4,4);
+		
+	  	d.printMap();
+	  	
+	  	for(int i=0;i<100;i++){
+	  		char direction=in.next().charAt(0);
+	  		player1.move(direction);
+	  		d.printMap();
+	  	}
+	  	
+	  	
+	  	player1.move('6',-2);
+	  	
+	  	d.printMap();
 		
 		Consumable item1 = new Consumable("health potion",0,10);
 		
