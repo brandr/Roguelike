@@ -1,13 +1,17 @@
-public class level extends dungeon {
-  public tile [][] layout;
+import java.util.Random;
+
+public class Level extends Dungeon {
+	public Tile [][] layout;
 	public int floor;
 	public int size = 50; //For now will assume all dungeon levels are square, but a second size variable can be added if necessary
 	public int roomcount;
 	
+	public final static char EMPTYTILEICON = 'X';
+	
 	//Constructor
-	public level(int x) {
+	public Level(int x) {
 	floor = x;
-	layout = new tile[size][size];
+	layout = new Tile[size][size];
 	populate();
 	roomify();
 	}
@@ -16,7 +20,7 @@ public class level extends dungeon {
 	public void populate() {
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-			layout[i][j] = new tile ('X', true, true, floor, i, j);
+			layout[i][j] = new Tile (EMPTYTILEICON, true, true, floor, i,j);
 			//System.out.println(layout[i][j].icon);
 			}
 		}
@@ -29,7 +33,7 @@ public class level extends dungeon {
 	int y1 = rng.nextInt(size);
 	int x2 = x1 + rng.nextInt(size-x1);
 	int y2 = y1 - rng.nextInt(size-y1);
-	room r1 = new room(floor, x1, y1, x2, y2, layout);
+	Room r1 = new Room(floor, x1, y1, x2, y2, layout);
 	
 	}
 	
@@ -37,7 +41,7 @@ public class level extends dungeon {
 	public void printLevel() {
 	  	for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-			layout[i][j].printTile();
+			layout[j][i].printTile();
 			}
 			System.out.println("");
 		}
