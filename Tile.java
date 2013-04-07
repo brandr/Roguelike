@@ -1,7 +1,7 @@
-public class tile {
+public class Tile {
 
     public char icon;
-  public boolean isPassable;
+    public boolean isPassable;
 	public boolean isVisible;
 	public int floorTag;
 	public int xCoord;
@@ -9,7 +9,7 @@ public class tile {
 	public boolean isRoom;
 	
 	//Constructor
-	public tile(char c, boolean p, boolean v, int x, int y, int z) {
+	public Tile(char c, boolean p, boolean v, int x, int y, int z) {
 	icon = c;
 	isPassable = p;
 	isVisible = v;
@@ -23,7 +23,7 @@ public class tile {
 	isRoom = b;
 	}	
 	 //Constructor
-	public tile() {
+	public Tile() {
 	icon = 'Z';
 	}
       //Set icon for a tile
