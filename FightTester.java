@@ -13,15 +13,23 @@ public class FightTester {
 		Player player1 = new Player("Link");
 		Monster monster1 = new Monster("Moblin",'M');
 		
+		player1.setHitPoints(12);
+		player1.setBaseDamage(1);
+		monster1.setHitPoints(10);
+		
 		monster1.setCurrentLevel(d.lvlList[0]);
 		monster1.setPosition(2,2);
+		monster1.currentTile.monster=monster1;
 		
 		player1.setCurrentLevel(d.lvlList[0]);
 		player1.setPosition(4,4);
+		player1.currentTile.monster=player1;
 		
 	  	d.printMap();
 	  	
 	  	for(int i=0;i<100;i++){
+	  		System.out.println(player1+": "+ player1.showHitPoints());
+	  		System.out.println(monster1+": "+ monster1.showHitPoints());
 	  		char direction=in.next().charAt(0);
 	  		player1.move(direction);
 	  		d.printMap();
