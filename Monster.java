@@ -169,6 +169,7 @@ public class Monster extends Entity{
 	
 	public void die(){				//develop this more		(drop items, can no longer perform actions, object gets deleted, more specific message appears, etc.)	
 		System.out.println(name+" died.");
+		currentTile.clear();
 	}
 	
 	
