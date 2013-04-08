@@ -37,14 +37,26 @@ public class Level extends Dungeon {
 	
 	}
 	
+	public String getLevel(){
+		String level = "";
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+			level+=layout[j][i].icon;
+			}
+			level+=("\n");
+		}
+		return level;
+	}
+	
 	//Print function
 	public void printLevel() {
-	  	for (int i = 0; i < size; i++) {
+	  	/*for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 			layout[j][i].printTile();
 			}
 			System.out.println("");
-		}
+		}*/
+		System.out.println(getLevel());
 	}
 
 	public Tile getTile(int xPos, int yPos){
@@ -53,6 +65,10 @@ public class Level extends Dungeon {
 	
 	public boolean isPassable(int xPos, int yPos) {
 		return (layout[xPos][yPos].isPassable);
+	}
+
+	public boolean containsTile(int xPos, int yPos) {
+		return xPos>=0 && yPos>=0 && xPos<size && yPos < size;
 	}
 	
 } 
