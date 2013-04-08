@@ -1,9 +1,10 @@
 
 public class Entity {
 
-  public void setPosition(int xPos, int yPos){	//TODO: put in error handling for out-of-bounds areas
+	public void setPosition(int xPos, int yPos){	//TODO: put in error handling for out-of-bounds areas
 		currentTile = currentLevel.layout[xPos][yPos];
 		currentTile.setIcon(icon);
+		currentTile.isPassable=!solid;
 	}
 	
 	public void setIcon(char icon){
@@ -25,6 +26,7 @@ public class Entity {
 		this.currentLevel = currentLevel;
 	}
 
+	public boolean solid = true;
 	private char icon;
 	protected Level currentLevel;
 	protected Tile currentTile;
