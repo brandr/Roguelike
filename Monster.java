@@ -115,16 +115,19 @@ public class Monster extends Entity{
 	
 	public void moveTo(int xPos, int yPos){
 		//TODO: need error handling to prevent moving onto solid objects, or out of the room.
-		if(currentLevel.isPassable(xPos,yPos)){
-			currentTile.isPassable=true;
-			currentTile.monster=null;
-			currentTile.setIcon(Level.EMPTYTILEICON);
-			setPosition(xPos, yPos);
-			currentTile.monster=this;
-			}
+		if(currentLevel.containsTile(xPos, yPos)){
+			if(currentLevel.isPassable(xPos,yPos)){
+				currentTile.isPassable=true;
+				currentTile.monster=null;
+				currentTile.setIcon(Level.EMPTYTILEICON);
+				setPosition(xPos, yPos);
+				currentTile.monster=this;
+				
+				setCurrentMessage("");
+				}
 		else if(currentLevel.getTile(xPos, yPos).monster!=null)
 			attack(currentLevel.getTile(xPos, yPos).monster);
-		
+		}
 	}
 	
 	
@@ -140,9 +143,12 @@ public class Monster extends Entity{
 	
 	public void attack(Monster target){		//attacks a target
 		int damage = determineDamage();
-		target.takeDamage(damage);
+		setCurrentMessage(name+ " attacked "+target.name+"!");
+		target.takeDamage(damage);	
 	}
 	
+	
+
 	public void takeDamage(int damage){		//takes damage	
 		for(int i = 0;i<INVENTORYSLOTS;i++){
 			if(equippedItems[i]!=null){
@@ -168,7 +174,7 @@ public class Monster extends Entity{
 	}
 	
 	public void die(){				//develop this more		(drop items, can no longer perform actions, object gets deleted, more specific message appears, etc.)	
-		System.out.println(name+" died.");
+		setCurrentMessage(name+" died.");
 		currentTile.clear();
 	}
 	
@@ -275,6 +281,10 @@ public class Monster extends Entity{
 		}
 		public void setName(String name) {
 			this.name = name;
+		}
+		
+		private void setCurrentMessage(String message) {
+			RogueLikeGui.currentMessage=message;
 		}
 
 	protected String name;
