@@ -19,6 +19,10 @@ public class Monster extends Entity{
 
 	//toString methods
 	
+	public String toString(){
+		return name;
+	}
+	
 	public String showHitPoints(){
 		return hitPoints[0]+"/"+hitPoints[1];
 	}
@@ -111,8 +115,16 @@ public class Monster extends Entity{
 	
 	public void moveTo(int xPos, int yPos){
 		//TODO: need error handling to prevent moving onto solid objects, or out of the room.
-		currentTile.setIcon(Level.EMPTYTILEICON);
-		setPosition(xPos, yPos);
+		if(currentLevel.isPassable(xPos,yPos)){
+			currentTile.isPassable=true;
+			currentTile.monster=null;
+			currentTile.setIcon(Level.EMPTYTILEICON);
+			setPosition(xPos, yPos);
+			currentTile.monster=this;
+			}
+		else if(currentLevel.getTile(xPos, yPos).monster!=null)
+			attack(currentLevel.getTile(xPos, yPos).monster);
+		
 	}
 	
 	
