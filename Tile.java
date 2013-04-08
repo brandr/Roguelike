@@ -1,12 +1,14 @@
 public class Tile {
 
     public char icon;
-    public boolean isPassable;
-	public boolean isVisible;
+    public boolean isPassable=true;
+	public boolean isVisible=true;
 	public int floorTag;
 	public int xCoord;
 	public int yCoord;
 	public boolean isRoom;
+	
+	public Monster monster=null;
 	
 	//Constructor
 	public Tile(char c, boolean p, boolean v, int x, int y, int z) {
@@ -34,6 +36,12 @@ public class Tile {
 	//Print function
 	public void printTile() {
 	System.out.print(icon);
+	}
+
+	public void clear() {
+		monster=null;
+		icon=Level.EMPTYTILEICON;
+		isPassable=true;
 	}
 	
 }
