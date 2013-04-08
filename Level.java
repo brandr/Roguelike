@@ -3,7 +3,7 @@ import java.util.Random;
 public class Level extends Dungeon {
 	public Tile [][] layout;
 	public int floor;
-	public int size = 50; //For now will assume all dungeon levels are square, but a second size variable can be added if necessary
+	public int size = 15; //For now will assume all dungeon levels are square, but a second size variable can be added if necessary
 	public int roomcount;
 	
 	public final static char EMPTYTILEICON = 'X';
@@ -45,6 +45,14 @@ public class Level extends Dungeon {
 			}
 			System.out.println("");
 		}
+	}
+
+	public Tile getTile(int xPos, int yPos){
+		return layout[xPos][yPos];
+	}
+	
+	public boolean isPassable(int xPos, int yPos) {
+		return (layout[xPos][yPos].isPassable);
 	}
 	
 } 
