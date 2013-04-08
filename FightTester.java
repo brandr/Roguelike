@@ -2,7 +2,10 @@ import java.util.Scanner;
 
 public class FightTester {
   
-	public static void main(String[] args){
+	public static void main(String[] args){		//NOTE: this tester is outdated. use the main method of the RogueLikeGui class
+												//unless you want to test more specific interactions here.
+		
+		RogueLikeGui gameWindow = new RogueLikeGui("Roguelike");
 		
 		Scanner in = new Scanner(System.in);
 		
