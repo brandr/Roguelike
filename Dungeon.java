@@ -15,11 +15,21 @@ public class Dungeon {
    
    }
    
+   public String getMap(){
+	   String map = "";
+	   for (int i = 0; i < depth; i++) {
+		   	map+=lvlList[i].getLevel();
+		   	map+=("\n\n");
+			  }
+	   return map;
+   }
+   
    //Print out map
    public void printMap() {
-    for (int i = 0; i < depth; i++) {
+    /*for (int i = 0; i < depth; i++) {
 	  lvlList[i].printLevel();
 	  System.out.println("\n\n");
-	  }
+	  }*/
+	   System.out.println(getMap());
    }
 }
