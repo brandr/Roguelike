@@ -5,8 +5,10 @@ public class Level extends Dungeon {
 	public int floor;
 	public int size = 15; //For now will assume all dungeon levels are square, but a second size variable can be added if necessary
 	public int roomcount;
+	public Monster[] levelMonsters=new Monster[100];
 	
-	public final static char EMPTYTILEICON = 'X';
+	public final static char EMPTYTILEICON = '·';
+	public final static char WALLICON = 'X';
 	
 	//Constructor
 	public Level(int x) {
@@ -20,8 +22,10 @@ public class Level extends Dungeon {
 	public void populate() {
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
+			if(i==0||j==0||i==size-1||j==size-1)
+				addWall(i,j);
+			else
 			layout[i][j] = new Tile (EMPTYTILEICON, true, true, floor, i,j);
-			//System.out.println(layout[i][j].icon);
 			}
 		}
 	}
@@ -41,7 +45,12 @@ public class Level extends Dungeon {
 		String level = "";
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-			level+=layout[j][i].icon;
+				if(layout[j][i].icon==EMPTYTILEICON)
+					level+=""+layout[j][i].icon+"";
+				else if(layout[j][i].icon==WALLICON)
+					level+=""+layout[j][i].icon+"";
+				else
+					level+=layout[j][i].icon;
 			}
 			level+=("\n");
 		}
@@ -69,6 +78,46 @@ public class Level extends Dungeon {
 
 	public boolean containsTile(int xPos, int yPos) {
 		return xPos>=0 && yPos>=0 && xPos<size && yPos < size;
+	}
+	
+	//monster functions
+	
+	public Monster getMonster(int index){
+		return levelMonsters[index];
+	}
+	
+	public void addMonster(Monster newMonster){	//add a monster to list of enemies
+		int index=0;							//TODO: this should be grouped with other functions so that a monster is always placed somewhere when added to the dungeon.
+		while(levelMonsters[index]!=null)
+			index++;
+		levelMonsters[index]=newMonster;
+	}
+
+	public void removeMonster(Monster removedMonster) {	//this might be a good place to tell other monsters in the level to remove this monster from their hostile list.
+		int index=0;
+		while(levelMonsters[index]!=null){
+			if(levelMonsters[index]==removedMonster){
+				levelMonsters[index]=levelMonsters[index+1];
+			while(levelMonsters[index+1]!=null){
+				index++;
+				levelMonsters[index]=levelMonsters[index+1];
+				}
+			}
+			index++;
+		}
+		
+	}
+	
+	//tile adding functions
+	
+	public void addFloorTile(int xPos, int yPos){
+		if(containsTile(xPos,yPos))
+			layout[xPos][yPos]=new Tile(EMPTYTILEICON,true,true,floor,xPos,yPos);
+	}
+	
+	public void addWall(int xPos, int yPos){
+		if(containsTile(xPos,yPos))
+			layout[xPos][yPos]=new Tile(WALLICON,false,true,floor,xPos,yPos);
 	}
 	
 } 
