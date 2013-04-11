@@ -26,10 +26,6 @@ public class Dungeon {
    
    //Print out map
    public void printMap() {
-    /*for (int i = 0; i < depth; i++) {
-	  lvlList[i].printLevel();
-	  System.out.println("\n\n");
-	  }*/
 	   System.out.println(getMap());
    }
 }
