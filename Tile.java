@@ -1,14 +1,6 @@
 public class Tile {
 
-    public char icon;
-    public boolean isPassable=true;
-	public boolean isVisible=true;
-	public int floorTag;
-	public int xCoord;
-	public int yCoord;
-	public boolean isRoom;
-	
-	public Monster monster=null;
+    
 	
 	//Constructor
 	public Tile(char c, boolean p, boolean v, int x, int y, int z) {
@@ -40,8 +32,41 @@ public class Tile {
 
 	public void clear() {
 		monster=null;
-		icon=Level.EMPTYTILEICON;
+		displayIcon();
 		isPassable=true;
 	}
+	
+	private void displayIcon() {
+		if(tileItems.isEmpty())
+			setIcon(Level.EMPTYTILEICON);
+		else
+			setIcon(tileItems.stackChar());
+	}
+	
+	public void addItem(Item newItem){
+		tileItems.addItem(newItem);
+		displayIcon();
+	}
+	
+	public void removeItem(Item removedItem) {
+		tileItems.removeItem(removedItem);
+		displayIcon();
+		
+	}
+	
+	public boolean containsItems() {
+		return (!tileItems.isEmpty());
+	}
+
+	public char icon;
+    public boolean isPassable=true;
+	public boolean isVisible=true;
+	public int floorTag;
+	public int xCoord;
+	public int yCoord;
+	public boolean isRoom;
+	
+	public Monster monster=null;
+	public ItemStack tileItems=new ItemStack();
 	
 }
