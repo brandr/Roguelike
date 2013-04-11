@@ -1,8 +1,10 @@
 
 public class Inventory {
 
-  public Inventory(){
-		maxItems=30;
+	public static final int MAXITEMS=30;
+	
+	public Inventory(){
+		maxItems=MAXITEMS;
 		items = new Item[maxItems];
 	}
 	
@@ -17,16 +19,29 @@ public class Inventory {
 		}
 	}*/
 	
-	public String toString(){
+	
+	public String[] listInventory(){	//redundant?
+		String[] itemNames = new String[items.length];
+		for(int i=0;i<items.length;i++){
+			itemNames[i]=items[i].toString();
+		}
+		return itemNames;
+	}
+	
+	public String toString(){	//idea: string array? (might be more versatile for displaying.)
 		
 		if(isEmpty()){
-			return "empty";
+			return "(empty)";
 		}
 		
 		String retVal = "";
 		int index = 0;
 		while (items[index]!=null){
-			retVal+=items[index].toString();
+			if(items[index].equippable)
+				retVal+=((Equipment)items[index]);
+			else
+				retVal+=items[index].toString();
+			retVal+="\n";
 			index++;
 		}
 		return retVal;
@@ -34,6 +49,10 @@ public class Inventory {
 	
 	public boolean isEmpty(){
 		return items[0]==null;
+	}
+	
+	public boolean isFull(){
+		return items[maxItems-1]!=null;
 	}
 	
 	public Item getItem(int index){
@@ -45,7 +64,7 @@ public class Inventory {
 		while(items[index]!=null){
 			index++;
 			if(index >= maxItems){
-				System.out.println("No room.");
+				System.out.println("No room.");	//need a way to display in gui.
 			}
 		}
 		items[index]=newItem;
@@ -69,8 +88,47 @@ public class Inventory {
 		}
 	}
 	
+	public void removeItem(Item removedItem) {	//special function with an item as an arg instead of an int. Will probably be useful.
+		int index=0;
+		while(items[index]!=removedItem&&items[index]!=null)
+			index++;
+		
+		removeItem(index);
+	}
+	
+	public Item takeItem(int index){
+		if(containsItem(index)){
+		Item takenItem=getItem(index);		//will this work? might cause shallow copy/deep copy problems
+		removeItem(index);
+		return takenItem;
+		}
+		else
+			return null;	//might need a better case for when the index is not correct for an item
+	}
+	
+	private boolean containsItem(int index) {
+		if(index>=0&&index<maxItems&&items[index]!=null){
+			return true;
+		}
+		return false;
+	}
+	
+	public Item topItem(){		//consider moving this to inventory, if it is ever used there
+		return items[0];
+	}
+
+	public int getMaxItems(){
+		return maxItems;
+	}
+	
+	/*public void setItems(Item[] items) {
+		for(int i=0;i<items.length;i++){
+			this.items[i]=items[i];
+		}
+		
+	}*/
 	
 	private int maxItems;
-	private Item [] items;
+	protected Item [] items;
 	
 }
