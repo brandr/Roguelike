@@ -2,9 +2,11 @@
 public class Entity {
 
 	public void setPosition(int xPos, int yPos){	//TODO: put in error handling for out-of-bounds areas
-		currentTile = currentLevel.layout[xPos][yPos];
-		currentTile.setIcon(icon);
-		currentTile.isPassable=!solid;
+		if(currentLevel.containsTile(xPos, yPos)){
+			currentTile = currentLevel.layout[xPos][yPos];
+			currentTile.setIcon(icon);
+			currentTile.isPassable=!solid;
+		}
 	}
 	
 	public void setIcon(char icon){
