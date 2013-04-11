@@ -3,14 +3,23 @@
 
 public class Equipment extends Item{
 
-  public Equipment(){
+	public Equipment(){
 		name=null;
 		setStatBoosts();
 		wornIndex=-1;		//placeholder value that will be used in error cases.
+		equippable=true;
 	}
 	
 	public String toString(){
-		return name;
+		String retVal=name;
+		return retVal;
+	}
+	
+	public String equippedToString(){	//if equipped, displays with the [E] in equipment list
+		String retVal=name;
+		if(equipped)
+			retVal+=" [E]";
+		return retVal;
 	}
 	
 	@Override
@@ -27,6 +36,11 @@ public class Equipment extends Item{
 		equipped=!equipped;
 	}
 	
+	public int getPower(int index) {
+		return statBoosts[index];
+	}
+	
+	//public boolean equippable;
 	public boolean equipped=false;
 	protected int[] statBoosts;		//strength values (attack power, armor, etc.)
 	//index 0: armor	index 1: attack		(add further indices)
@@ -37,8 +51,7 @@ public class Equipment extends Item{
 	//a 2-handed weapon is technically held in the right hand, but forces the left hand to be empty.
 
 	public boolean twoHanded = false;
-
-	public int getPower(int index) {
-		return statBoosts[index];
-	}
+	
+	
+	
 }
