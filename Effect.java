@@ -1,6 +1,6 @@
 
-public class Effect {  	//effects that happen to players
-	
+public class Effect {		//effects that happen to players
+							//TODO: implement food effects
 	public Effect(){
 		name=null;
 		value=0;
