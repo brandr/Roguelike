@@ -1,22 +1,27 @@
 
 public class Weapon extends Equipment{
 
-  public Weapon(){
+	public static final char STANDARDWEAPONICON='/';
+	
+	public Weapon(){
 		name=null;
 		setStatBoosts();
 		wornIndex=3;
+		setIcon(STANDARDWEAPONICON);
 	}
 	
 	public Weapon(String name){
 		this.name=name;
 		setStatBoosts();
-		wornIndex=3;	
+		wornIndex=3;
+		setIcon(STANDARDWEAPONICON);
 	}
 	
 	public Weapon(String name, int power){
 		this.name=name;
 		setPower(power);
-		wornIndex=3;	
+		wornIndex=3;
+		setIcon(STANDARDWEAPONICON);
 	}
 	
 	public int getPower(){
@@ -26,8 +31,6 @@ public class Weapon extends Equipment{
 	public void setPower(int power) {
 		statBoosts[1]=power;
 	}
-
-	public boolean twoHanded = false;
-
 	
+	public boolean twoHanded = false;
 }
