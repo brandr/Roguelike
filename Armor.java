@@ -1,16 +1,20 @@
 
 public class Armor extends Equipment{
 
-  public Armor(){
+	public static final char STANDARDARMORICON='[';
+	
+	public Armor(){
 		name=null;
 		setStatBoosts();
 		wornIndex=-1;
+		setIcon(STANDARDARMORICON);
 	}
 	
 	public Armor(String name){
 		this.name=name;
 		setStatBoosts();
 		wornIndex=-1;
+		setIcon(STANDARDARMORICON);
 	}
 	
 	public void setArmorType(int index){	//sets where the armor is worn
